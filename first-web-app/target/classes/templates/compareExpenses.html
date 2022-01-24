@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Profile</title>
+<link rel="stylesheet" type="text/css" href="compareExpenses.css">
+<script src="https://kit.fontawesome.com/953e554ec5.js"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<h1>Compare Past vs Current Month</h1>
+<body>
+	<div class="column side">
+		<div class="navigation">
+			<ul>
+				<li><a href="loginProfile"> <span class="icon"><i
+							class="fas fa-plus"></i></span> <span class="title">Add/View
+							Transaction</span>
+				</a></li>
+				<li><a href="searchInput"> <span class="icon"><i
+							class="fas fa-search"></i></span> <span class="title">Search/Delete
+							Input</span>
+				</a></li>
+				<li><a href="expenses"> <span class="icon"><i
+							class="fas fa-chart-pie"></i></span> <span class="title">Monthly
+							Expenses</span>
+				</a></li>
+				<li><a href="compareExpenses"> <span class="icon"><i
+							class="fas fa-info"></i></span> <span class="title">Prev Month
+							Expenses</span>
+				</a></li>
+				<li><a href="savings"> <span class="icon"><i
+							class="fas fa-chart-line"></i></span> <span class="title">Savings
+							Report</span>
+				</a></li>
+				<li><a href="logout"> <span class="icon"><i
+							class="fas fa-sign-out-alt"></i></span> <span class="title">Logout</span>
+				</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+	<div class="search">
+
+
+
+		<form action="searchMonth" method=get>
+
+			<div class="searchbar">
+				<input type="month" class="searchTerm"
+					placeholder="Enter a month(MM/YYYY)" name="searchMonth" required>
+				<button type="submit" class="searchButton">
+					<i class="fa fa-search"></i>
+				</button>
+			</div>
+		</form>
+
+
+	</div>
+
+
+	<div class="viewExpenses">
+
+		<div class="box">
+			<div class="header">
+				<div class="pieChart1">
+					<span th:text="${monthBasedOnSearch}"></span>
+				</div>
+
+
+			</div>
+
+
+			<div id="chart-expenses">
+				<script th:inline="javascript">
+					var transport = /*[[${transportChartByMonth}]]*/"";
+					var foodanddrinks = /*[[${foodanddrinksChartByMonth}]]*/"";
+					var entertainment = /*[[${entertainmentChartByMonth}]]*/"";
+					var bills = /*[[${billsChartByMonth}]]*/"";
+					var insurance = /*[[${insuranceChartByMonth}]]*/"";
+					var others = /*[[${othersChartByMonth}]]*/"";
+					var options = {
+						series : [ transport, foodanddrinks, entertainment,
+								bills, insurance, others ],
+						plotOptions : {
+							pie : {
+								donut : {
+									labels : {
+										show : true,
+										name : {
+											show : true,
+							
+											
+
+										}
+									}
+								}
+							}
+						},
+						chart : {
+							width : 380,
+							type : 'donut',
+						},
+						labels : [ 'Transport', 'Food & Drinks',
+								'Entertainment', 'Bills', 'Insurance', 'Others' ],
+
+						responsive : [ {
+							breakpoint : 480,
+							options : {
+
+								chart : {
+									width : 200
+								},
+								legend : {
+									position : 'bottom',
+
+								}
+							}
+						} ],
+						tooltip : {
+							y : {
+								formatter : function(value) {
+									return "$ " + value;
+								}
+							}
+						}
+					};
+
+					var chart = new ApexCharts(document
+							.querySelector("#chart-expenses"), options);
+					chart.render();
+				</script>
+				<p>
+					Total Expenses: <span class="totalExpenses"
+						th:text="${totalExpensesByChoosenMonth}"></span>
+				</p>
+			</div>
+		</div>
+
+		<div class="header2">
+			<div th:text="${#dates.format(#dates.createNow(),'MMM YYYY')}"
+				class="dateYear"></div>
+
+
+		</div>
+
+
+		<div id="chart-expenses-month">
+			<script th:inline="javascript">
+				var transport = /*[[${transportChart}]]*/"";
+				var foodanddrinks = /*[[${foodanddrinksChart}]]*/"";
+				var entertainment = /*[[${entertainmentChart}]]*/"";
+				var bills = /*[[${billsChart}]]*/"";
+				var insurance = /*[[${insuranceChart}]]*/"";
+				var others = /*[[${othersChart}]]*/"";
+				var options = {
+					series : [ transport, foodanddrinks, entertainment, bills,
+							insurance, others ],
+					plotOptions : {
+						pie : {
+							donut : {
+								labels : {
+									show : true,
+									name : {
+										show : true,
+
+									}
+								}
+							}
+						}
+					},
+					chart : {
+						width : 380,
+						type : 'donut',
+					},
+					labels : [ 'Transport', 'Food & Drinks',
+						'Entertainment', 'Bills', 'Insurance', 'Others' ],
+
+					responsive : [ {
+						breakpoint : 480,
+						options : {
+
+							chart : {
+								width : 200
+							},
+							legend : {
+								position : 'bottom',
+
+							}
+						}
+					} ],
+					tooltip : {
+						y : {
+							formatter : function(value) {
+								return "$ " + value;
+							}
+						}
+					}
+				};
+
+				var chart = new ApexCharts(document
+						.querySelector("#chart-expenses-month"), options);
+				chart.render();
+			</script>
+			<p>
+				Total Expenses: <span class="totalExpensesMonth"
+					th:text="${totalExpensesMonth}"></span>
+			</p>
+		</div>
+
+
+
+	</div>
+
+
+
+
+
+
+</body>
+</html>

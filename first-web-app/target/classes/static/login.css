@@ -1,0 +1,74 @@
+@charset "ISO-8859-1";
+body{
+  background-color: #FFFFFF;
+  padding:100px 50px;
+    border:15px solid #00C5A0;
+  width:90%;
+}
+
+h1{
+  colour: #00FFFF;
+  text-align:center;
+  font-family:DejaVu Sans Mono, monospace;
+  font-size:65px;
+  font-weight:800;
+}
+
+#username{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  text-align:center;
+}
+
+#password{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  text-align:center;
+}
+
+.loginProfile{
+  float:none;
+  font-size:17px;
+  font-weight:700;
+  text-align:center;
+  display:inline-block;
+	padding: 6px 15px;
+   	color: white;
+    text-decoration: none;
+    background-color: #00C5A0;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width:80px;
+    font-family:FreeMono, monospace;
+    margin:10px 737px;
+}
+
+
+#register{
+  font-size:15px;
+  font-family:FreeMono, monospace;
+  float:none;
+  margin:0px 400px;
+  text-align:center;
+}
+
+#registerHere{
+  font-size:15px;
+  font-family:FreeMono, monospace;
+  text-decoration-style: underline;
+  text-decoration-color: red;
+  colour:red;
+  
+}
+
+
+.errorText{
+	text-decoration-color: red;
+	font-family:FreeMono, monospace;
+	font-size:15px;
+	margin: 0px 590px;
+	color:red;
+	
+	 
+}
