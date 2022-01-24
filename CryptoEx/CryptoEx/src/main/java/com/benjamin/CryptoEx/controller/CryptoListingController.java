@@ -33,6 +33,10 @@ public class CryptoListingController {
 	}
 	
 	
+	public double getCoinPrice(String coin) {
+		return 1.1;
+	}
+	
 	@RequestMapping("cryptoListing")
 	public String goToCrytoListing(Model model) {
 		System.out.println("Going to Crypto Listing (Not Logged in)");
@@ -51,5 +55,7 @@ public class CryptoListingController {
 		
 		return "cryptoListing";
 	}
+	
+	
 	
 }
