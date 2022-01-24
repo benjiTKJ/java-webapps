@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Profile</title>
+<link rel="stylesheet" type="text/css" href="searchInput.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://kit.fontawesome.com/953e554ec5.js"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="column side">
+		<div class="navigation">
+			<ul>
+				<li><a href="loginProfile"> <span class="icon"><i
+							class="fas fa-plus"></i></span> <span class="title">Add/View
+							Transaction</span>
+				</a></li>
+				<li><a href="searchInput"> <span class="icon"><i
+							class="fas fa-search"></i></span> <span class="title">Search/Delete
+							Input</span>
+				</a></li>
+				<li><a href="expenses"> <span class="icon"><i
+							class="fas fa-chart-pie"></i></span> <span class="title">Monthly
+							Expenses</span>
+				</a></li>
+				<li><a href="compareExpenses"> <span class="icon"><i
+							class="fas fa-info"></i></span> <span class="title">Prev Month
+							Expenses</span>
+				</a></li>
+				<li><a href="savings"> <span class="icon"><i
+							class="fas fa-chart-line"></i></span> <span class="title">Savings
+							Report</span>
+				</a></li>
+				<li><a href="logout"> <span class="icon"><i
+							class="fas fa-sign-out-alt"></i></span> <span class="title">Logout</span>
+				</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+	<div class="column middle">
+
+		<div class="search">
+
+
+
+			<form action="searchInputForm" method=get>
+
+				<div class="searchbar">
+					<input type="text" class="searchTerm"
+						placeholder="Enter a Category or Description or Date(DD/MM)"
+						name="searchWord" required>
+					<button type="submit" class="searchButton">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</form>
+
+
+		</div>
+
+
+
+		<table style="display: block; height: 400px; overflow-y: auto;">
+
+			<tr>
+				<th>Category</th>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Actions</th>
+
+			</tr>
+
+
+			<tr th:each="input : ${inputData}">
+				<td th:text="${input.category}"></td>
+				<td th:text="${input.description}"></td>
+				<td th:text="${input.amount}"></td>
+				<td th:text="${input.localDate}"></td>
+				<td><a class="delete" title="Delete" data-toggle="tooltip"
+					th:href="@{'deleteInput'+${input.id}}"><i
+						class="material-icons">&#xE872;</i></a></td>
+
+
+
+			</tr>
+
+			</tbody>
+
+		</table>
+
+
+
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

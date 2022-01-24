@@ -1,0 +1,108 @@
+@charset "ISO-8859-1";
+*{
+  box-sizing:border-box;
+}
+
+
+body{
+  background-color: #FFFFFF;
+  min-height:100vh;
+}
+
+.container{
+  padding:200px;
+  border:15px solid #00C5A0;
+  position:relative;
+  
+  
+}
+
+h1{
+  colour: #00FFFF;
+  text-align:center;
+  font-family:DejaVu Sans Mono, monospace;
+  font-size:65px;
+  font-weight:800;
+}
+
+
+#firstname{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  top:50%;
+  left:50%;
+  margin: -10px 0 0 400px;
+  
+  
+ 
+}
+
+#lastname{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  top:50%;
+  left:50%;
+  margin: -0px 0 0 410px;
+}
+
+#username{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  top:50%;
+  left:50%;
+  margin: -0px 0 0 422px;
+}
+
+#password{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  top:50%;
+  left:50%;
+  margin: -0px 0 0 422px;
+}
+
+#passwordComfirm{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  top:50%;
+  left:50%;
+  margin: -0px 0 0 333px;
+}
+
+#email{
+   font-size:20px;
+  font-family:FreeMono, monospace;
+  top:50%;
+  left:50%;
+  margin: -0px 0 0 455px;
+}
+
+.registerButton{
+  float:none;
+  margin:8px 0;
+  font-size:17px;
+  cursor:pointer;
+  top:50%;
+  left:50%;
+  margin: 5px 0 0 622px;
+  display:inline-block;
+	padding: 6px 15px;
+   	color: white;
+    text-decoration: none;
+    background-color: #00C5A0;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width:70px;
+    font-family:FreeMono, monospace;
+    margin:10px 598px;
+    width:auto;
+  
+}
+
+.errorText{
+	text-decoration-color: red;
+	font-family:FreeMono, monospace;
+	font-size:15px;
+	margin: 0px 440px;
+	color:red;

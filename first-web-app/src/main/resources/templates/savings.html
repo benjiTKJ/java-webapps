@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Profile</title>
+<link rel="stylesheet" type="text/css" href="savings.css">
+<script src="https://kit.fontawesome.com/953e554ec5.js"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<h1>Savings Report</h1>
+</head>
+<body>
+	<div class="column side">
+		<div class="navigation">
+			<ul>
+				<li><a href="loginProfile"> <span class="icon"><i
+							class="fas fa-plus"></i></span> <span class="title">Add/View
+							Transaction</span>
+				</a></li>
+				<li><a href="searchInput"> <span class="icon"><i
+							class="fas fa-search"></i></span> <span class="title">Search/Delete
+							Input</span>
+				</a></li>
+				<li><a href="expenses"> <span class="icon"><i
+							class="fas fa-chart-pie"></i></span> <span class="title">Monthly
+							Expenses</span>
+				</a></li>
+				<li><a href="compareExpenses"> <span class="icon"><i
+							class="fas fa-info"></i></span> <span class="title">Prev Month
+							Expenses</span>
+				</a></li>
+				<li><a href="savings"> <span class="icon"><i
+							class="fas fa-chart-line"></i></span> <span class="title">Savings
+							Report</span>
+				</a></li>
+				<li><a href="logout"> <span class="icon"><i
+							class="fas fa-sign-out-alt"></i></span> <span class="title">Logout</span>
+				</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+
+	<div class="savingsReport">
+		
+
+		<div id="chart">
+			<script th:inline="javascript">
+				var may21 = /*[[${may21}]]*/"";
+				var jun21 = /*[[${jun21}]]*/"";
+				var jul21 = /*[[${jul21}]]*/"";
+				var aug21 = /*[[${aug21}]]*/"";
+				var sep21 = /*[[${sep21}]]*/"";
+				var oct21 = /*[[${oct21}]]*/"";
+				var nov21 = /*[[${nov21}]]*/"";
+				var dec21 = /*[[${dec21}]]*/"";
+				var jan22 = /*[[${jan22}]]*/"";
+				var feb22 = /*[[${feb22}]]*/"";
+				var mar22 = /*[[${mar22}]]*/"";
+				var apr22 = /*[[${apr22}]]*/"";
+
+				var options = {
+					series : [ {
+						name : "Savings",
+						data : [may21, jun21, jul21 ,aug21, sep21, oct21, nov21, dec21, jan22, feb22, mar22, apr22 ]
+					} ],
+					chart : {
+						height : 350,
+						width : 1000,
+						type : 'line',
+						zoom : {
+							enabled : true
+						},
+						toolbar:{
+							show:true,
+							tools:{
+								download:false
+							}
+						}
+					},
+					dataLabels : {
+						enabled : false
+					},
+					stroke : {
+						curve : 'straight'
+					},
+					title : {
+						text : 'Savings per Month',
+						align : 'left'
+					},
+					grid : {
+						row : {
+							colors : [ '#f3f3f3', 'transparent' ], // takes an array which will be repeated on columns
+							opacity : 0.5
+						},
+					},
+					xaxis : {
+						categories : [ 'May 21','Jun 21','Jul 21','Aug 21', 'Sep 21', 'Oct 21', 'Nov 21',
+								'Dec 21', 'Jan 22', 'Feb 22', 'Mar 22',
+								'Apr 22' ],
+					}
+				};
+
+				var chart = new ApexCharts(document.querySelector("#chart"),
+						options);
+				chart.render();
+			</script>
+
+		</div>
+	</div>
+
+
+
+
+
+
+</body>
+</html>

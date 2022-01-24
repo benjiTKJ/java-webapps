@@ -1,0 +1,176 @@
+@charset "ISO-8859-1";
+
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Red Hat Mono', monospace;
+}
+
+h1{
+	text-align:center;
+	font-size:40px;
+	padding:40px;
+}
+
+.column {
+  float: left;
+  padding:10px;
+}
+
+.column.side{
+  width:30%;
+}
+
+.column.middle{
+  width:50%;
+}
+
+body{
+  min-height:100vh;
+  background: #FFFFFF;
+}
+
+.navigation{
+  position:fixed;
+  top:20px;
+  left:20px;
+  bottom:20px;
+  width:70px;
+  height:100%;
+  border-radius:10px;
+  border-left:15px;
+  box-sizing:initial;
+  background:#00C5A0;
+  transition: 0.5s;
+  overflow:hidden;
+  color:white;
+}
+
+.navigation:hover{
+  width:300px;
+}
+
+.navigation ul {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  
+}
+
+.navigation ul li{
+  position:relative;
+  width:100%;
+  list-style: none;
+  border-top-left-radius:20px;
+  border-bottom-left-radius:20px;
+}
+
+
+
+.navigation ul li:hover{
+ background: #0ca688; 
+}
+
+
+.navigation ul li a{
+  position:relative;
+  display:block;
+  width:100px;
+  display:flex;
+  text-decoration:none;
+  color:#fff;
+}
+
+
+.navigation ul li a .icon{
+  position:relative;
+  display:block;
+  min-width:60px;
+  height:60px;
+  line-height:60px;
+  text-align:center;
+}
+
+.navigation ul li a .icon .fa{
+ font-size:24px;
+  
+}
+
+.navigation ul li a .title{
+  position:relative;
+  display:block;
+  padding: 0 10px;
+  height:60px;
+  line-height:60px;
+  text-align:start;
+  white-space:nowrap;
+}
+
+
+.viewExpenses{
+   width:100%;
+  margin-left:200px;
+  margin:40px 200px;
+}
+
+.overview{
+  padding:70px;
+  left:550px;
+  font-size:40px;
+  margin: 0 320px;
+}
+
+.dateYear{
+  padding:10px;
+  bottom:200px;
+  left:710px;
+  font-size:40px;
+  margin: 0 490px;
+  color:#00C5A0;
+  
+}
+
+.header{
+  column-count:2;
+  column-width:100px;
+  
+}
+
+.header .pieChart{
+
+  
+  font-size:25px;
+  margin:50px 300px;
+  width:30%;
+  
+} 
+
+.header .barChart{
+  
+  font-size:25px;
+  margin: 0px 50px;
+  width:30%;
+  
+  
+} 
+
+.charts{
+  column-count:2;
+  column-width:100px;
+  
+}
+
+
+.charts, #chart-expenses{
+  max-width: 60px;
+  margin: 30px 90px;
+}
+
+.charts, #chart-income{
+  max-width: 1100px;
+  margin: 0px 140px;
+}
