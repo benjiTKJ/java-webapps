@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Welcome To Crypto Ex</title>
-<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="cryptoListing.css">
 </head>
 <script src="https://kit.fontawesome.com/953e554ec5.js"
 	crossorigin="anonymous"></script>
@@ -32,27 +32,57 @@
 <body>
 
 	<div class="header">
-		<h1>Crypto Listing here</h1>
-		<a th:text="${bitcoin}"></a>
-
-
-
-
-	</div>
-	<div class="body">
-		<table>
-		<tr>
-			<td>Name</td>
-			<td>Price</td>
-			<td>24h %</td>
-		</tr>
-		<tr th:text="${testing}">
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
 		
-		</table>
+		
+	<div class="searchBar">
+	<input id="myInput" class="myInput" type="text" placeholder="Search for a coin" onkeyup="searchTable()">
+	</div>
+	
+	<script>
+			function searchTable() {
+				var input, filter, found, table, tr, td, i, j;
+				input = document.getElementById("myInput");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTable");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td");
+					for (j = 0; j < td.length; j++) {
+						if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+							found = true;
+						}
+					}
+					if (found) {
+						tr[i].style.display = "";
+						found = false;
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		</script>
+		<table>
+  
+  <thead>
+  <tr>
+    <th>name</th>
+    <th>symbol</th>
+    <th>price(USD)</th>
+    <th>24h %</th>
+  </tr>
+  </thead>
+  
+  <tbody id="myTable">
+    <tr>
+      <td data-label="name">Bitcoin<img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/BTC_Logo.svg" width=20px height=20px></td>
+      <td data-label="symbol">BTC</td>
+      <td data-label="price" th:text="${bitcoinPrice}"></td>
+      <td data-label="priceChange" th:text="${bitcoinChange}" th:style="${bitcoinChange<0}?'color:red':'color:green'"></td>
+    </tr>
+     
+  </tbody>
+  
+</table>
 		
 
 

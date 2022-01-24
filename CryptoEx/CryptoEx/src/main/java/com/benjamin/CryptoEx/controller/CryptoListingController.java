@@ -33,24 +33,31 @@ public class CryptoListingController {
 	}
 	
 	
-	public double getCoinPrice(String coin) {
-		return 1.1;
+	public Double getCoinPrice(Map<String, Map<String, Double>> coinMap) {
+		String coin = coinMap.values().toString();
+		coin = coin.replaceAll("[^0-9.]", "");
+		return Double.parseDouble(coin);
+	}
+	
+	public Double getCoinChangeInPrice(Map<String, Map<String, Double>> coinMap) {
+		String coin = coinMap.values().toString();
+		coin = (String) coin.subSequence(26, coin.length());
+		coin = coin.replaceAll("[^0-9.-]", "");
+		double coinChange = Double.parseDouble(coin);
+		coinChange = Math.round(coinChange*10000d)/10000d;
+		return coinChange;
 	}
 	
 	@RequestMapping("cryptoListing")
 	public String goToCrytoListing(Model model) {
 		System.out.println("Going to Crypto Listing (Not Logged in)");
 		
-		Map<String, Map<String, Double>> bitcoin = client.getPrice("ripple",Currency.USD);
-		String bitcoinPrice = bitcoin.values().toString();
-		bitcoinPrice = bitcoinPrice.replaceAll("[^0-9.]", " ");
+		Map<String, Map<String, Double>> bitcoinPrice = client.getPrice("bitcoin",Currency.USD);	
+		model.addAttribute("bitcoinPrice", getCoinPrice(bitcoinPrice));
+		Map<String, Map<String, Double>> bitcoinChange = client.getPrice("bitcoin", Currency.USD, false, false, true, false);
+		model.addAttribute("bitcoinChange", getCoinChangeInPrice(bitcoinChange));
 		
 		
-		model.addAttribute("bitcoin", bitcoinPrice);
-		
-		model.addAttribute("testing", client.getPrice("bitcoin", Currency.USD, false, false, true, false));
-		
-		model.addAttribute("coinsData", coinsList());
 		
 		
 		return "cryptoListing";
