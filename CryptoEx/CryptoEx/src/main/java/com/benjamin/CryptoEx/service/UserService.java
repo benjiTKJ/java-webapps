@@ -73,5 +73,10 @@ public class UserService {
 		System.out.println("Current session by user: "+ userRepository.findByUsername(username));
 		return userRepository.findByUsername(username).isPresent()?true:false;
 	}
+
+	public int retriveId(String username) {
+		
+		return userRepository.getIdOfCustomer(username);
+	}
 	
 }

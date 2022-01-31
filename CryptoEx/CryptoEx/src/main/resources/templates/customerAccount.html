@@ -4,9 +4,11 @@
 <meta charset="ISO-8859-1">
 <title>Welcome To Crypto Ex</title>
 <link rel="stylesheet" type="text/css" href="customerAccount.css">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <script src="https://kit.fontawesome.com/953e554ec5.js"
 	crossorigin="anonymous"></script>
+
 <nav>
 	<div id="logo" onClick="location.href='loginIndex'">Crypto Ex</div>
 
@@ -15,12 +17,14 @@
 	<ul class="menu">
 		<li><a href="">About Us</a></li>
 
-		<li><a href="">Crypto Listing</a></li>
+		<li><a href="loginCryptoListing">Crypto Listing</a></li>
 
 		<li><a href="#">Account</a> <input type="checkbox" id="drop-2" />
 			<ul>
 				<li><a href="customerAccount">Account</a></li>
-				<li><a href="logout">Logout </a></li></li>
+				<li><a href="logout">Logout </a></li>
+				
+				</li>
 		
 	</ul>
 
@@ -36,15 +40,199 @@
 		<div class="helloMessage">
 		Hello! <span th:text="${helloMessage}"></span>
 		</div>
-
+<div role="alert" th:text="${errorMessage}" th:if="${errorMessage}"></div>
+<div role="alert" th:text="${successMessage}" th:if="${successMessage}"></div>
 
 	</div>
 	<div class="body">
-		<label>-----Exchange go here----</label>
+	
+	<button onClick="openAddNewTransactionForm()" class="newTransaction">New Transaction      <i class="fas fa-plus"></i></button>
+	<button onClick="openAddNewCoinForm()" class="newCoinButton">New Coin Name</button>	
+		<div class="container">
+			<table>
+				<tr>
+				<th>Name</th>
+				<th>Total Quantity</th>
+				<th>Average Price</th>
+				<th>Current Price</th>
+				<th>Profit/Loss</th>
+				</tr>
+			
+				<tr th:each="data : ${cryptoPortfolio}">
+					<td th:text="${data.name}"></td>
+					<td th:text="${data.quantity}"></td>
+					<td th:text="${data.price}"></td>
+					<td ></td>
+					
+					<td th:text="${data.quantity*data.price}"></td>
+				</tr>
+			
+			
+			</table>
+		
+		
+		
+		</div>
 
 
+ 	</div>
+ 	<!-- Pop up for add new transaction screen -->
+
+<div class="popup-overlay1" data-backdrop="static" data-keyboard="false"></div>
+<div class="popup1">
+  <div class="popup-close1" onclick="closeAddNewTransactionForm()">&times;</div>
+  <div class="header1">
+      Add New Transaction
+    </div>
+    <button class="buy" style=width:70px;margin-left:20px;>Buy</button>
+    <button class="sell" style=width:70px;>Sell</button>
+    
+    <form action="addNewBuyTransaction" method="post">
+  <div class="form1" id="form1">
+    <div class="element1">
+      <label for="name">Name of Coin:</label>
+      <select class="form-control" name="name">
+      	<option th:each="name:${cryptoName}" th:value="${name}" th:text="${name}"></option>
+      </select>
+      
+    </div>
+  
+    <div class="element1">
+      <label for="price">Price(USD):</label>
+      <input type="number" id="price" min="0" max="999999999" step="any" name="price" required placeholder="$">
+      
+    </div>
+    <div class="element1">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" min="0" max="999999999" step="any" name="quantity" required >
+      
+    </div>
+    <div class="element1">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="localDate" >
+      
+    </div>
+    
+    <div class="element1">
+      <button value="add">Add Buy Transaction</button>
+    </div>
+    
+    
+    
+	
+				
+  </div>
+  </form>
  
+  <form action="addNewSellTransaction" method="post">
+  <div class="form2" id="form2" style="display: none;">
+    <div class="element1">
+      <label for="name">Name of Coin:</label>
+      <select class="form-control" name="name">
+      	<option th:each="name:${cryptoName}" th:value="${name}" th:text="${name}"></option>
+      </select>
+      
+    </div>
+  
+    <div class="element1">
+      <label for="price">Price(USD):</label>
+      <input type="number" id="price" min="0" max="999999999" step="any" name="price" required placeholder="$">
+      
+    </div>
+    <div class="element1">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" min="0" max="999999999" step="any" name="quantity" required >
+      
+    </div>
+    <div class="element1">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="localDate" >
+      
+    </div>
+    
+    <div class="element1">
+      <button value="add">Add Sell Transaction</button>
+    </div>
+    </div>
+ </form> 
+</div>
+ <script>
+  $('.form2').hide();
+  $('.buy').click(function(e){
+	  e.preventDefault();
+	  $(this).addClass('active');
+	  $('.sell').removeClass('active');
+	  $('.form1').show();
+	  $('.form2').hide();
+  });
+  
+  $('.sell').click(function(e){
+	  e.preventDefault();
+	  $(this).addClass('active');
+	  $('.buy').removeClass('active');
+	  $('.form2').show();
+	  $('.form1').hide();
+  })
+  
+  </script>
+<script>
+		function openAddNewCoinForm() {
+			document.body.classList.add("showLoginForm");
+		}
+		function closeAddNewCoinForm() {
+			document.body.classList.remove("showLoginForm");
+		}
+		function openAddNewTransactionForm() {
+			document.body.classList.add("showLoginForm1");
+		}
+		function closeAddNewTransactionForm() {
+			document.body.classList.remove("showLoginForm1");
+		}
+		
+	</script>
+ <!-- Pop up for add new transaction screen -->
+ 	<!-- Pop up for add new coin name screen -->
 
+<div class="popup-overlay" data-backdrop="static" data-keyboard="false"></div>
+<div class="popup">
+  <div class="popup-close" onclick="closeAddNewCoinForm()">&times;</div>
+  <form action="addNewCoinName" method="post">
+  <div class="form">
+    
+    <div class="header">
+      Add New Coin
+    </div>
+    <div class="element">
+      <label for="name">Name of Coin:</label>
+      <input type="text" id="name" name="name" required placeholder="Enter Name of Coin">
+    </div>
+    <div class="element">
+      <label for="symbol">Symbol of Coin</label>
+      <input type="text" id="symbol" name="symbol" required placeholder="Eg(BTC for Bitcoin)">
+      
+    </div>
+    
+    <div class="element">
+      <button value="add">Add</button>
+    </div>
+    
+    
+	
+				
+  </div>
+  </form>
+</div>
+<script>
+		function openAddNewCoinForm() {
+			document.body.classList.add("showLoginForm");
+		}
+		function closeAddNewCoinForm() {
+			document.body.classList.remove("showLoginForm");
+		}
+		
+	</script>
+ <!-- Pop up for add new coin name screen -->
+ 
 
 </body>
 </html>
