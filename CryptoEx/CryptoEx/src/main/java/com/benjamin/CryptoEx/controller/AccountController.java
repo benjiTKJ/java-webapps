@@ -3,6 +3,7 @@
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +62,18 @@ public class AccountController {
 		List<String> cryptoName = cryptoCoinService.findAllCryptoCoinName();
 		model.addAttribute("cryptoName", cryptoName);
 		
-		int customerId = userService.retriveId(username);
+		int customerId = getIdOfCustomer(request);
 		List<CryptoPortfolio> cryptoPortfolioOfCustomer = cryptoCoinService.getPortfolioFromCustomerId(customerId);
-		cryptoPortfolioOfCustomer.forEach(System.out::println);
+		List<Double> cryptoPrices = new ArrayList<>();
+		for(CryptoPortfolio crypto:cryptoPortfolioOfCustomer) {
+			String cryptoCoinName = crypto.getName();
+			Map<String, Map<String, Double>> currentPriceMap = client.getPrice(cryptoCoinName, Currency.USD);
+			double currentPriceDouble = cryptoListingController.getCoinPrice(currentPriceMap);
+			cryptoPrices.add(currentPriceDouble);
+		}
 		
 		model.addAttribute("cryptoPortfolio", cryptoPortfolioOfCustomer);
+		model.addAttribute("currentPrices", cryptoPrices);
 		
 		return userService.authenticateUser(username) ?"customerAccount":"error";
 	}
@@ -153,21 +161,30 @@ public class AccountController {
 		return userService.authenticateUser(username)?"loginCryptoListing":"error";
 	}
 	
-	//errors in method causes stackOverflowError
 	@PostMapping("addNewBuyTransaction")
 	public String addNewBuyTransaction(CryptoPortfolio cryptoPortfolio, RedirectAttributes redirectAttributes, HttpServletRequest request, Model model) throws ParseException {
 		String username = getUsernameOfCustomer(request);
-		int customerId = userService.retriveId(username);
+		int customerId = getIdOfCustomer(request);
 		int coinId = cryptoCoinService.retriveIdOfCoin(cryptoPortfolio.getName());
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date newDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateFormat.format(cryptoPortfolio.getLocalDate()));
 		cryptoPortfolio.setLocalDate(newDate);
 		
-		
-		  cryptoCoinService.addNewBuyTransaction(cryptoPortfolio,customerId,coinId);
-		  System.out.println("Added new Buy Transaction by :"+username);
+		//issue with the if statement
+		if(cryptoCoinService.checkIfCoinNameExistInPortfolio(customerId, coinId)) {
+			cryptoCoinService.addBuyTransactionAveragePrice(cryptoPortfolio,customerId,coinId);
+			System.out.println("Added new Buy Transaction by :"+username);
+			redirectAttributes.addFlashAttribute("successMessage","Buy transaction added!");
+			
+		}else {
+			cryptoCoinService.addNewBuyTransaction(cryptoPortfolio,customerId,coinId);
+			System.out.println("Added new Buy Transaction by :"+username);
+			redirectAttributes.addFlashAttribute("successMessage","Buy transaction added!");
+		}
+		//
 		  
-		  redirectAttributes.addFlashAttribute("successMessage","Buy transaction added!");
+		  
+		  
 		 
 		return "redirect:customerAccount";
 	}

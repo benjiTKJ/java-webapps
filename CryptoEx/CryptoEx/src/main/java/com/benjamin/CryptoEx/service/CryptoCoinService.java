@@ -72,6 +72,42 @@ public class CryptoCoinService {
 		return cryptoPortfolioRepository.getPortfolioFromCustomerId(customerId);
 	}
 
+	public boolean checkIfCoinNameExistInPortfolio(int customerId, int coinId) {
+		if(cryptoPortfolioRepository.findByCustomerIdAndCoinId(customerId,coinId)!=null) {
+			return true;
+		}
+		return false;
+	}
+
+	public void addBuyTransactionAveragePrice(CryptoPortfolio cryptoPortfolio, int customerId, int coinId) {
+		if(userRepository.findById(customerId)!=null) {
+			Optional<CustomerDetail> foundCustomerDetail = userRepository.findById(customerId);
+			if(foundCustomerDetail.isPresent()) {
+				CustomerDetail customer = foundCustomerDetail.get();
+				cryptoPortfolio.setCustomerDetail(customer);
+				Optional<CryptoCoinList> foundCoinName = cryptoCoinRepository.findById(coinId);
+				CryptoCoinList coinName = foundCoinName.get();
+				cryptoPortfolio.setCryptoCoinList(coinName);
+				
+				double currentQuantity = cryptoPortfolioRepository.getQuantityByCoinId(coinId,customerId);
+				System.out.println("Current Quantity is: "+currentQuantity);
+				double currentPrice = cryptoPortfolioRepository.getPriceByCoinId(coinId,customerId);
+				System.out.println("Current Price is: "+currentPrice);
+				double newQuantity = cryptoPortfolio.getQuantity();
+				double newQuantityAvg = currentQuantity + newQuantity;
+				System.out.println("New average quantity :"+newQuantityAvg);
+				double newPrice = cryptoPortfolio.getPrice();
+				double newPriceAvg = ((currentQuantity*currentPrice) + (newQuantity*newPrice))/newQuantityAvg;
+				int currentPorfolioId = cryptoPortfolioRepository.getIdByCoinId(coinId,customerId);
+				cryptoPortfolioRepository.deleteById(currentPorfolioId);
+				
+				cryptoPortfolioRepository.save(new CryptoPortfolio(cryptoPortfolio.getName(), newPriceAvg, newQuantityAvg, cryptoPortfolio.getLocalDate(), customer, coinName));
+				
+			}
+		}
+		
+	}
+
 	
 
 }

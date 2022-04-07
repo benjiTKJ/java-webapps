@@ -53,18 +53,19 @@
 				<tr>
 				<th>Name</th>
 				<th>Total Quantity</th>
-				<th>Average Price</th>
-				<th>Current Price</th>
-				<th>Profit/Loss</th>
+				<th>Average Price(USD)</th>
+				<th>Current Price(USD)</th>
+				<th>Profit/Loss(USD)</th>
 				</tr>
 			
-				<tr th:each="data : ${cryptoPortfolio}">
+				<tr th:each="data,s : ${cryptoPortfolio}">
 					<td th:text="${data.name}"></td>
 					<td th:text="${data.quantity}"></td>
 					<td th:text="${data.price}"></td>
-					<td ></td>
+					<td th:text="${currentPrices[s.index]}"></td>
 					
-					<td th:text="${data.quantity*data.price}"></td>
+					<td th:text="${((currentPrices[s.index]-data.price)*data.quantity)}" 
+					th:style="${((currentPrices[s.index]-data.price)*data.quantity)<0}?'color:red':'color:green'"></td>
 				</tr>
 			
 			

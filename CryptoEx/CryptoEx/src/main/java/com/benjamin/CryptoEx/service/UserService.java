@@ -74,9 +74,6 @@ public class UserService {
 		return userRepository.findByUsername(username).isPresent()?true:false;
 	}
 
-	public int retriveId(String username) {
-		
-		return userRepository.getIdOfCustomer(username);
-	}
+	
 	
 }

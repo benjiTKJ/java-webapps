@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>register</title>
+<link rel="stylesheet" type="text/css" href="register.css">
+</head>
+
+<body>
+<div class="container">
+  <h1>Be the First to register</h1>
+  
+  
+    <form action="registerUser" method="post">
+    <div id="firstname">First Name:
+      <input type="text" placeholder ="Enter your First Name" name = "firstname" required>
+    </div>
+    
+    <div id="lastname">Last Name:
+      <input type="text" placeholder ="Enter your Last Name" name = "lastname" required>
+    </div>
+    
+    
+    <div id="username">Username:
+      <input type="text" placeholder ="Enter a Username" name = "username" required>
+    </div>
+    
+    <div id="password">Password:
+      <input type="password" placeholder ="Enter a Password" name = "password" required>
+    </div>
+    
+    <div id="passwordComfirm">Comfirm Password:
+      <input type="password" placeholder ="Re-enter your password" name = "comfirmPassword" required>
+    </div>
+    
+    <div id="email">Email:
+      <input type="email" placeholder ="Enter an email" name = "email" required>
+    </div>
+    
+<!--     need make changes here to authenticate -->
+<!--     <a class="registerButton" >Register</a> -->
+    <input type="submit" value="Register" class="registerButton">
+    <div th:if="${errorMessage != null}">
+			<span class="errorText" th:text="${errorMessage}"></span>
+		
+		</div>
+    
+    
+    </form>
+  </div>
+
+ 
+  
+</html>
